@@ -8,7 +8,7 @@ type closeFuntion = () => void;
 export interface BaseAlertProps {
     className?: string;
     title: string;
-    description?: string | React.ReactNode | null;
+    description?: string | JSX.Element | null;
     type?: AlertType;
     onClose?: closeFuntion;
     closable?: boolean;
@@ -16,14 +16,27 @@ export interface BaseAlertProps {
 
 const Alert: React.FC<BaseAlertProps> = props => {
     const {className, title, description, type, onClose, closable} = props;
-    const classes = classNames('alert', className, {
-        [`alert-${type}`]: type,
+    const classes = classNames('river-alert', className, {
+        [`river-alert-${type}`]: type,
     });
+
+    const handleClose = (e: React.MouseEvent) => {
+        if (onClose) {
+            onClose();
+        }
+    };
 
     return (
         <div className={classes}>
-            <div className="alert-title">{title}</div>
-            {description === null ? null : <div className="alert-description">{description}</div>}
+            <div className="river-alert-container">
+                {closable ? (
+                    <div className="river-alert-close" onClick={handleClose}>
+                        关闭
+                    </div>
+                ) : null}
+                <div className="river-alert-title">{title}</div>
+                {description === null ? null : <div className="river-alert-description">{description}</div>}
+            </div>
         </div>
     );
 };
@@ -31,7 +44,7 @@ const Alert: React.FC<BaseAlertProps> = props => {
 Alert.defaultProps = {
     description: null,
     type: 'default',
+    closable: true,
 };
 
-
-export default Alert
+export default Alert;
