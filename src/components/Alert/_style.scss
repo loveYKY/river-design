@@ -1,0 +1,27 @@
+.alert {
+    width: 200px;
+    padding: $alert-padding-y $alert-padding-x;
+    border-radius: $alert-border-radius;
+    border:1px solid red;
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.alert-default {
+
+}
+
+.alert-success {
+
+}
+
+.alert-danger {
+
+}
+
+.alert-warning {
+
+}

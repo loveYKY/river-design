@@ -1,11 +1,10 @@
-import React from 'react';
-
+import Alert from './components/Alert/alert';
 function App() {
-  return (
-    <div className="App">
-      <h1>hello</h1>
-    </div>
-  );
+    return (
+        <div className="App">
+            <Alert title='hello world'></Alert>
+        </div>
+    );
 }
 
 export default App;
