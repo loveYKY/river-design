@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classNames from 'classnames';
 import {MenuItemProps} from './menuItem';
 
@@ -7,7 +7,7 @@ type triggerMode = 'click' | 'hover';
 //定义menu组件的props接口
 export interface MenuProps {
     //默认选中的
-    defaultIndex?: string;
+    selectedIndex?: string;
     //类名
     className?: string;
     //设置垂直或水平模式
@@ -36,10 +36,14 @@ export const MenuContext = React.createContext<IMenuContext>({index: '0'});
 
 //Menu组件
 const Menu: React.FC<MenuProps> = props => {
-    const {defaultIndex, className, mode, style, onSelect, triggerSubMenuAction, children, defaultOpenSubMenus} = props;
+    const {selectedIndex, className, mode, style, onSelect, triggerSubMenuAction, children, defaultOpenSubMenus} = props;
 
     //添加控制选中状态的state
-    const [activeIndex, setActive] = useState(defaultIndex);
+    const [activeIndex, setActive] = useState(selectedIndex);
+
+    useEffect(() => {
+        setActive(selectedIndex);
+    }, [selectedIndex]);
 
     //添加class
     const classes = classNames('river-menu', className, {
@@ -95,7 +99,7 @@ const Menu: React.FC<MenuProps> = props => {
 
 Menu.defaultProps = {
     mode: 'horizontal',
-    defaultIndex: '0',
+    selectedIndex: '0',
     triggerSubMenuAction: 'click',
 };
 

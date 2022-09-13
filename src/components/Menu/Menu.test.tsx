@@ -5,13 +5,13 @@ import {render, fireEvent, screen} from '@testing-library/react';
 import Menu, {MenuProps} from './menu';
 import MenuItem, {MenuItemProps} from './menuItem';
 const testMenuProps: MenuProps = {
-    defaultIndex: '0',
+    selectedIndex: '0',
     onSelect: jest.fn(),
     className: 'test',
 };
 
 const testVerticalProps: MenuProps = {
-    defaultIndex: '0',
+    selectedIndex: '0',
     mode: 'vertical',
 };
 

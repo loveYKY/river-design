@@ -1,27 +1,53 @@
-import Menu from './components/Menu/menu';
-import MenuItem from './components/Menu/menuItem';
-import SubMenu from './components/Menu/subMenu';
+import {useState} from 'react';
+import Tabs from './components/Tabs/tabs';
+import TabItem from './components/Tabs/tabItem';
+
 function App() {
+    const [activeNumber, setActive] = useState('1');
+
+    const test = () => {
+        return <div>自定义样式</div>;
+    };
+
     return (
         <div className="App">
-            <Menu
-                onSelect={e => {
-                    console.log(e);
+            <button
+                onClick={() => {
+                    setActive('1');
+                }}>
+                click me
+            </button>
+            <button
+                onClick={() => {
+                    setActive('2');
+                }}>
+                click me
+            </button>
+            <button
+                onClick={() => {
+                    setActive('3');
+                }}>
+                click me
+            </button>
+            <Tabs
+                activeKey={activeNumber}
+                onChange={index => {
+                    setActive(index)
                 }}
-                mode="vertical"
-                defaultIndex="1"
-                defaultOpenSubMenus={['4']}
-                >
-                <SubMenu title="dropdown" index="4">
-                    <MenuItem index="5">我是子列表</MenuItem>
-                    <MenuItem index="6">我是子列表</MenuItem>
-                </SubMenu>
-                <MenuItem index="1">我是第一条</MenuItem>
-                <MenuItem index="2">我是第二条</MenuItem>
-                <MenuItem index="3" disabled>
-                    我是第三条
-                </MenuItem>
-            </Menu>
+                onSelect={index => {
+                    setActive(index)
+                }}
+                type="card">
+                <TabItem index="1" label={test()}>
+                    我是tab1
+                </TabItem>
+                <TabItem index="2" label="tab2">
+                    我是tab2
+                </TabItem>
+                <TabItem index="3" label="tab3">
+                    我是tab3
+                </TabItem>
+            </Tabs>
         </div>
     );
 }
