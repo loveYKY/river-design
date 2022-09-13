@@ -44,7 +44,7 @@ function App() {
                 <TabItem index="2" label="tab2">
                     我是tab2
                 </TabItem>
-                <TabItem index="3" label="tab3">
+                <TabItem index="3" label="tab3" disabled>
                     我是tab3
                 </TabItem>
             </Tabs>

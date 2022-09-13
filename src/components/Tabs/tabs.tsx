@@ -41,13 +41,15 @@ const Tabs: React.FC<TabsProps> = props => {
         if (onChange && activeIndex) {
             onChange(activeIndex);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeIndex]);
 
-    const handleClick = (index: string) => {
-        setActive(index);
-
-        if (onSelect) {
+    //点击tab触发onSelect事件
+    const handleClick = (index: string, disable: boolean | undefined) => {
+        if (!disable) {
+            setActive(index);
+        }
+        if (onSelect && !disable) {
             onSelect(index);
         }
     };
@@ -77,7 +79,7 @@ const Tabs: React.FC<TabsProps> = props => {
                     <li
                         className={classes}
                         onClick={() => {
-                            handleClick(childElement.props.index);
+                            handleClick(childElement.props.index, disabled);
                         }}>
                         {label}
                     </li>
