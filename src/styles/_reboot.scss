@@ -233,7 +233,8 @@ a {
 a:not([href]) {
   &,
   &:hover {
-    color: inherit;
+    // color: inherit;
+    caret-color: rgba(0,0,0,0);
     text-decoration: none;
   }
 }

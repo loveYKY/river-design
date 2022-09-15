@@ -4,7 +4,7 @@ export type ButtonSize = 'lg' | 'sm'
 
 export type ButtonType = 'primary' | 'default' | 'danger' | 'link';
 
-interface BaseButtonProps {
+export interface BaseButtonProps {
     className?: string;
     disabled?: boolean;
     size?: ButtonSize;
@@ -18,7 +18,7 @@ type AnchorButtonProps = BaseButtonProps & React.AnchorHTMLAttributes<HTMLElemen
 
 export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>;
 
-const Button: React.FC<ButtonProps> = props => {
+export const Button: React.FC<ButtonProps> = props => {
     const {className, disabled, size, btnType, href, children, ...restProps} = props;
 
     const classes = classNames('btn', className, {
