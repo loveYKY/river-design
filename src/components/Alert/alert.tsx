@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import classNames from 'classnames';
-
+import Icon from '../Icon/icon';
+import {faClose} from '@fortawesome/free-solid-svg-icons';
+import Transition from '../Transition/transition';
 export type AlertType = 'success' | 'default' | 'danger' | 'warning';
 
 type closeFuntion = () => void;
@@ -28,19 +30,19 @@ const Alert: React.FC<BaseAlertProps> = props => {
         setVisible(false);
     };
 
-    return visible ? (
-        <div className={classes}>
-            <div className="river-alert-container">
-                {closable ? (
-                    <div className="river-alert-close" onClick={handleClose}>
-                        关闭
-                    </div>
-                ) : null}
-                <div className="river-alert-title">{title}</div>
-                {description === null ? null : <div className="river-alert-description">{description}</div>}
+    return (
+        <Transition in={visible} timeout={300} animation="zoom-in-top">
+            <div className={classes}>
+                <div className="river-alert-container">
+                    {closable ? (
+                        <Icon className="river-alert-close" icon={faClose} color="white" onClick={handleClose}></Icon>
+                    ) : null}
+                    <div className="river-alert-title">{title}</div>
+                    {description === null ? null : <div className="river-alert-description">{description}</div>}
+                </div>
             </div>
-        </div>
-    ) : null;
+        </Transition>
+    );
 };
 
 Alert.defaultProps = {

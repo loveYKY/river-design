@@ -2,6 +2,9 @@ import React, {useContext, useEffect, useState} from 'react';
 import classNames from 'classnames';
 import {MenuContext} from './menu';
 import {MenuItemProps} from './menuItem';
+import Icon from '../Icon/icon';
+import {faAngleDown} from '@fortawesome/free-solid-svg-icons';
+import Transition from '../Transition/transition';
 
 export interface SubMenuProps {
     //SubMenu的index
@@ -29,10 +32,15 @@ const SubMenu: React.FC<SubMenuProps> = props => {
         'is-active': context.index === index || isActive,
     });
 
+    //icon Classes
+    const iconClasses = classNames('arrow-icon', {
+        'arrow-icon-active': menuOpen,
+    });
+
     //初始化menuOpen的值
 
     useEffect(() => {
-        if (context.defaultOpenSubMenus?.indexOf(index) !== -1) {
+        if (context.defaultOpenSubMenus && context.defaultOpenSubMenus.indexOf(index) !== -1) {
             setOpen(true);
         }
     }, [context.defaultOpenSubMenus, index]);
@@ -73,7 +81,11 @@ const SubMenu: React.FC<SubMenuProps> = props => {
             }
         });
 
-        return <ul className={classes}>{childrenComponent}</ul>;
+        return (
+            <Transition in={menuOpen} timeout={300} animation="zoom-in-top">
+                <ul className={classes}>{childrenComponent}</ul>
+            </Transition>
+        );
     };
 
     //subMenu点击事件
@@ -116,8 +128,9 @@ const SubMenu: React.FC<SubMenuProps> = props => {
         <li key={index} className={classes} {...hoverEvents}>
             <div className="submenu-title" {...clickEvents}>
                 {title}
+                <Icon icon={faAngleDown} className={iconClasses}></Icon>
             </div>
-            {menuOpen ? renderChildren() : null}
+            {renderChildren()}
         </li>
     );
 };
