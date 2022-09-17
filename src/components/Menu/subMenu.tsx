@@ -18,7 +18,7 @@ export interface SubMenuProps {
     children?: React.ReactNode;
 }
 
-const SubMenu: React.FC<SubMenuProps> = props => {
+export const SubMenu: React.FC<SubMenuProps> = props => {
     const {index, className, title, children, disabled} = props;
 
     const [menuOpen, setOpen] = useState(false);

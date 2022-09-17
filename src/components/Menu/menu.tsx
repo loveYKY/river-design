@@ -6,20 +6,27 @@ type MenuMode = 'horizontal' | 'vertical';
 type triggerMode = 'click' | 'hover';
 //定义menu组件的props接口
 export interface MenuProps {
-    //默认选中的
+    /**
+     * 选中的菜单的index
+     */
     selectedIndex?: string;
-    //类名
+    /**
+     * 设置类名
+     */
     className?: string;
-    //设置垂直或水平模式
+    /**
+     * 设置Menu模式：水平或垂直
+     */
     mode?: MenuMode;
-    //样式
+    /** 设置样式 */
     style?: React.CSSProperties;
-    //子菜单展开的触发方式
+    /** 设置触发子菜单展开的方式 */
     triggerSubMenuAction?: triggerMode;
-    //选中回调函数
+    /** 点击菜单的回调函数 */
     onSelect?: (selectIndex: string) => void;
-    //默认展开的子菜单
+    /** 默认展开的子菜单 */
     defaultOpenSubMenus?: string[];
+    /** ReactNode */
     children?: React.ReactNode;
 }
 
@@ -35,8 +42,17 @@ interface IMenuContext {
 export const MenuContext = React.createContext<IMenuContext>({index: '0'});
 
 //Menu组件
-const Menu: React.FC<MenuProps> = props => {
-    const {selectedIndex, className, mode, style, onSelect, triggerSubMenuAction, children, defaultOpenSubMenus} = props;
+/**
+ * 支持水平、垂直模式的Menu菜单
+ * ###引用方法
+ * ```js
+ * import Menu from 'river-design'
+ * ```
+ *
+ */
+export const Menu: React.FC<MenuProps> = props => {
+    const {selectedIndex, className, mode, style, onSelect, triggerSubMenuAction, children, defaultOpenSubMenus} =
+        props;
 
     //添加控制选中状态的state
     const [activeIndex, setActive] = useState(selectedIndex);
