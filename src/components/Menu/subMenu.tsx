@@ -7,14 +7,15 @@ import {faAngleDown} from '@fortawesome/free-solid-svg-icons';
 import Transition from '../Transition/transition';
 
 export interface SubMenuProps {
-    //SubMenu的index
+    /** SubMenu唯一标识符 */
     index: string;
-    //类名
+    /** 设置类名 */
     className?: string;
-    //标题
+    /** 设置菜单名 */
     title: string;
-    //是否禁用
+    /** 设置是否禁用 */
     disabled?: boolean;
+    /** ReactNode */
     children?: React.ReactNode;
 }
 

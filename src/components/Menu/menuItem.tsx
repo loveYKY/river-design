@@ -9,6 +9,7 @@ export interface MenuItemProps {
     className?: string;
     /**选项的自定义 style */
     style?: React.CSSProperties;
+    /** ReactNode */
     children?: React.ReactNode;
 }
 
