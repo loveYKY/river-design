@@ -3,13 +3,15 @@ import classNames from 'classnames';
 
 type LabelType = React.ReactElement | string;
 export interface TabItemProps {
-    //tab的index值
+    /** tab唯一标识符 */
     index: string;
-    //tab的标签
+    /** tab的标签名 */
     label: LabelType;
-    //是否禁用
+    /** 设置是否禁用 */
     disabled?: boolean;
+    /** 设置类名 */
     className?: string;
+    /** ReactNode */
     children?: React.ReactNode;
 }
 

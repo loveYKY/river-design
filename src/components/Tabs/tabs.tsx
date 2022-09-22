@@ -5,20 +5,28 @@ import {TabItemProps} from './tabItem';
 type TabType = 'line' | 'card';
 
 export interface TabsProps {
-    //默认选中的tab
+    /** 默认选中的tab */
     activeKey?: string;
-    //类名
+    /** 设置类名 */
     className?: string;
-    //activeKey变换触发的回调
+    /** activeKey变化时触发的回调 */
     onChange?: (key: string) => void;
-    //点击Tab触发的回调
+    /** 选中tab触发的回调 */
     onSelect?: (key: string) => void;
-    //tab的样式
+    /** tab的样式，支持line和card两种模式 */
     type?: TabType;
     children?: React.ReactNode;
 }
 
-const Tabs: React.FC<TabsProps> = props => {
+/**
+ * 支持line、card模式的Tabs菜单
+ * ###引用方法
+ * ```js
+ * import Tabs from 'river-design'
+ * ```
+ *
+ */
+export const Tabs: React.FC<TabsProps> = props => {
     const {activeKey, className, onChange, onSelect, type, children} = props;
 
     const classes = classNames('river-tabs', className);
@@ -121,7 +129,7 @@ const Tabs: React.FC<TabsProps> = props => {
     return (
         <div className={classes}>
             <ul className={navClass}>{renderNavLinks()}</ul>
-            <div className="viking-tabs-content">{renderTabPane()}</div>
+            <div className="river-tabs-content">{renderTabPane()}</div>
         </div>
     );
 };
