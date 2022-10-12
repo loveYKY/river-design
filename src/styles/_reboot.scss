@@ -561,3 +561,17 @@ main {
 [hidden] {
   display: none !important;
 }
+
+// 统一滚动条样式
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track-piece {
+  border-radius: 4px;
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: #E8EAEC;;
+}

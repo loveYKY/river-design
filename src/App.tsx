@@ -1,29 +1,27 @@
-import AutoCompete from './components/AutoComplete/autoComplete';
-import {dataStructure} from './components/AutoComplete/autoComplete';
+import Select from './components/Select/select';
 function App() {
-    const data: Array<dataStructure> = [
+    let option = [
         {
-            label: '何江浩',
-            value: 1,
+            label: '123',
+            value: 0,
         },
         {
-            label: '王晓涵',
+            label: '456',
+            value: 1,
+            disabled: true,
+        },
+        {
+            label: '789',
             value: 2,
         },
         {
-            label: '杨可盈',
+            label: '111',
             value: 3,
         },
     ];
-
-    const fetchSuggestion = (query: string, data: Array<dataStructure>) => {
-        return data.filter(item => {
-            return item.label.includes(query);
-        });
-    };
     return (
         <div className="App">
-            <AutoCompete data={data} fetchSuggestion={fetchSuggestion} onSelect={(item)=>{console.log(item)}}></AutoCompete>
+            <Select options={option} onSelect={(e)=>{console.log(e)}}></Select>
         </div>
     );
 }
