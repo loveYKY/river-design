@@ -1,24 +1,69 @@
 .river-select {
     width: 240px;
+    border: $input-border-width solid $input-border-color;
+    border-radius: 0.25rem;
+    caret-color: rgba(0, 0, 0, 0);
     position: relative;
-    .river-input-wrapper {
-        transition: all .2s linear;
-        border: none;
 
-        .river-icon {
-            transition: all .1s linear;
+    .river-select-wrapper {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100%;
+        .river-select-tags {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            align-items: center;
+            max-width: 70%;
+            .river-select-tags-item {
+                margin: 4px;
+                border: 1px solid $gray-500;
+                background-color: $gray-100;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .tags-item-label {
+                    max-width: 32px;
+                    overflow: hidden;
+                    margin-right: 4px;
+                }
+                .river-icon {
+                    cursor: pointer;
+                }
+            }
+        }
+        .river-select-tags-hidden {
+            overflow: hidden;
+            flex-wrap: nowrap !important;
+        }
+        .river-input-wrapper {
+            transition: all 0.2s linear;
+            border: none;
+            height: 100%;
+            flex: 1;
+            .river-icon {
+                transition: all 0.1s linear;
+            }
+            .river-input-inner {
+                border: none;
+                box-shadow: none;
+            }
         }
     }
-    .river-input-active {
-        border: 1px solid $blue;
-        border-radius: 0.25rem;
-        box-shadow: 0 0 2px $blue;
+}
 
+.river-select-active {
+    border: 1px solid $blue;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 2px $blue;
+    .river-input-wrapper {
         .river-icon {
             transform: rotate(-180deg);
         }
     }
 }
+
 .river-options-list {
     max-height: 200px;
     overflow: auto;
@@ -41,8 +86,7 @@
         transition: $menu-transition;
         color: $body-color;
         &.is-active {
-            background-color: #c6ecf7;
-            color: $white !important;
+            background-color: #edeeef;
         }
         &.is-selected {
             background: $menu-item-active-color !important;
@@ -50,8 +94,8 @@
         }
     }
     .item-disabled {
-        cursor: not-allowed;
         color: #c4c4c4;
+        pointer-events: none;
     }
     .river-select-noData {
         height: 120px;

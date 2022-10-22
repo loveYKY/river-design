@@ -1,3 +1,4 @@
+import Input from './components/Input/input';
 import Select from './components/Select/select';
 function App() {
     let option = [
@@ -18,10 +19,32 @@ function App() {
             label: '111',
             value: 3,
         },
+        {
+            label: '111',
+            value: 4,
+        },
+        {
+            label: '111',
+            value: 5,
+        },
+        {
+            label: '111',
+            value: 6,
+        },
     ];
     return (
         <div className="App">
-            <Select options={option} onSelect={(e)=>{console.log(e)}}></Select>
+            <Select
+                multipleHidden={false}
+                Search
+                options={option}
+                mode={'Multiple'}
+                onSelect={(a,b) => {
+                    console.log(a,b);
+                }}
+                onVisibleChange={e => {
+                    console.log(e);
+                }}></Select>
         </div>
     );
 }

@@ -50,7 +50,7 @@ export const AutoCompete: React.FC<AutoCompleteProps> = props => {
     const triggerSearch = useRef(false);
 
     //当前list-item的值
-    const [listIndex, setIndex] = useState(-1);
+    const [listIndex, setListIndex] = useState(-1);
 
     //当前选中的list-item的值
     const [selectIndex, setSelectIndex] = useState(-1);
@@ -63,7 +63,7 @@ export const AutoCompete: React.FC<AutoCompleteProps> = props => {
                 return item.label === inputVal;
             });
             setSelectIndex(index);
-            setIndex(index);
+            setListIndex(index);
         }
     }, [suggestions, inputVal]);
 
@@ -120,7 +120,7 @@ export const AutoCompete: React.FC<AutoCompleteProps> = props => {
         if (suggestions.length === 0) return;
         let itemHeight = document.querySelector('.suggestion-item')?.clientHeight;
         if (e.key === 'ArrowDown') {
-            if (listIndex < suggestions.length) {
+            if (listIndex < suggestions.length - 1) {
                 let index = listIndex + 1;
                 let height = itemHeight == null ? 0 : itemHeight * (index + 1);
                 let clientHeight = document.querySelector('.river-suggestion-list')!.clientHeight;
@@ -129,7 +129,7 @@ export const AutoCompete: React.FC<AutoCompleteProps> = props => {
                 if (temp > clientHeight) {
                     document.querySelector('.river-suggestion-list')!.scrollTop = height - clientHeight;
                 }
-                setIndex(index);
+                setListIndex(index);
             }
         } else if (e.key === 'ArrowUp') {
             if (listIndex > 0) {
@@ -139,7 +139,7 @@ export const AutoCompete: React.FC<AutoCompleteProps> = props => {
                 if (height < scrollTop) {
                     document.querySelector('.river-suggestion-list')!.scrollTop = height;
                 }
-                setIndex(index);
+                setListIndex(index);
             }
         } else if (e.key === 'Enter') {
             setInputVal(suggestions[listIndex].label);
@@ -152,7 +152,7 @@ export const AutoCompete: React.FC<AutoCompleteProps> = props => {
     };
 
     const handleMouseEnter = (index: number) => {
-        setIndex(index);
+        setListIndex(index);
     };
 
     const renderSuggestions = () => {

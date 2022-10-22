@@ -33,8 +33,8 @@ Disabled.storyName = '设置disabled可以禁用input输入框';
 
 export const InputSize: ComponentStory<typeof Input> = () => (
     <>
-        <Input style={{width: '300px'}} size="lg" placeholder="large"></Input>
-        <Input style={{width: '300px'}} size="normal" placeholder="normal"></Input>
+        <Input style={{width: '300px',marginBottom:'30px'}} size="lg" placeholder="large"></Input>
+        <Input style={{width: '300px',marginBottom:'30px'}} size="normal" placeholder="normal"></Input>
         <Input style={{width: '300px'}} size="sm" placeholder="small"></Input>
     </>
 );
@@ -57,7 +57,7 @@ export const InputPrepend: ComponentStory<typeof Input> = () => {
     }
     return (
         <div>
-            <Input style={{width: '300px'}} placeholder="支持前缀字符串的输入框" prepend="https://"></Input>
+            <Input style={{width: '300px',marginBottom:'30px'}} placeholder="支持前缀字符串的输入框" prepend="https://"></Input>
             <Input style={{width: '300px'}} placeholder="支持前缀组件化的输入框" prepend={prepend()}></Input>
         </div>
     );
@@ -73,7 +73,7 @@ export const InputAppend: ComponentStory<typeof Input> = () => {
     }
     return (
         <div>
-            <Input style={{width: '300px'}} placeholder="支持后缀字符串的输入框" append=".com"></Input>
+            <Input style={{width: '300px',marginBottom:'30px'}} placeholder="支持后缀字符串的输入框" append=".com"></Input>
             <Input style={{width: '300px'}} placeholder="支持后缀组件化的输入框" append={append()}></Input>
         </div>
     );

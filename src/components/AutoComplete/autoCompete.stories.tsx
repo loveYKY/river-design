@@ -2,7 +2,6 @@ import React from 'react';
 import AutoCompete from './autoComplete';
 import {dataStructure} from './autoComplete';
 import {ComponentMeta, ComponentStory} from '@storybook/react';
-import {query} from 'express';
 
 const AutoCompeteMeta: ComponentMeta<typeof AutoCompete> = {
     title: 'AutoCompete',
