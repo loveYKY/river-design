@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-node-access */
 /* eslint-disable testing-library/no-container */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import React from 'react';
@@ -24,17 +25,18 @@ describe('test Autton component', () => {
     it('should alert been render in right type', () => {
         const {container} = render(<Alert {...typeProps} />);
         expect(screen.getByText('我是标题')).toBeInTheDocument();
-        // eslint-disable-next-line testing-library/no-debugging-utils, testing-library/no-node-access
         expect(container.querySelector('.river-alert')).toHaveClass('river-alert-success');
         expect(screen.getByText('我是描述')).toBeInTheDocument();
-        expect(screen.getByText('关闭')).toBeInTheDocument();
+        expect(container.querySelector('.river-alert-close')).toBeInTheDocument();
     });
 
     it('should alert can be close', () => {
-        render(<Alert {...testProps} />);
-        const element = screen.getByText('关闭');
+        const {container} = render(<Alert {...testProps} />);
+        const element = container.querySelector('.river-alert-close');
         expect(element).toBeInTheDocument();
-        fireEvent.click(element);
+        if (element) {
+            fireEvent.click(element);
+        }
         expect(testProps.onClose).toHaveBeenCalled();
     });
 });

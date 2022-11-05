@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import Input from '../Input/input';
-import {InputProps} from '../Input/input';
 import Icon from '../Icon/icon';
 import {faAngleDown, faInbox, faXmark} from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames';
@@ -148,6 +147,9 @@ export const Select: React.FC<SelectProps> = props => {
             if (onVisibleChange) {
                 onVisibleChange(showOptions);
             }
+            if (onSelect) {
+                onSelect(data, [data]);
+            }
         } else {
             let temp = _.cloneDeep(selectData);
             let index = selectData.findIndex(item => {
@@ -161,9 +163,9 @@ export const Select: React.FC<SelectProps> = props => {
             setSelectData(temp);
             setInputVal('');
             setCurOption(options ? options : []);
-        }
-        if (onSelect) {
-            onSelect(data, selectData);
+            if (onSelect) {
+                onSelect(data, temp);
+            }
         }
     };
 
@@ -214,6 +216,9 @@ export const Select: React.FC<SelectProps> = props => {
                 if (onVisibleChange) {
                     onVisibleChange(showOptions);
                 }
+                if (onSelect) {
+                    onSelect(data, [data]);
+                }
             } else {
                 let temp = _.cloneDeep(selectData);
                 let index = selectData.findIndex(item => {
@@ -227,9 +232,9 @@ export const Select: React.FC<SelectProps> = props => {
                 setSelectData(temp);
                 setInputVal('');
                 setCurOption(options ? options : []);
-            }
-            if (onSelect) {
-                onSelect(data, selectData);
+                if (onSelect) {
+                    onSelect(data, temp);
+                }
             }
         }
     };

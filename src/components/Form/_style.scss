@@ -1,0 +1,33 @@
+.river-form {
+    .river-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 24px;
+        &.river-row-no-label {
+            flex-direction: row-reverse;
+        }
+        .river-form-item-label {
+            flex-basis: 30%;
+            padding: 12px;
+            & > label {
+                margin: 0;
+            }
+        }
+        .river-form-item-label-left {
+            text-align: left;
+        }
+        .river-form-item-label-right {
+            text-align: right;
+        }
+        .river-form-item-label-center {
+            text-align: center;
+        }
+
+        .river-form-item {
+            flex-basis: 70%;
+            .river-input-wrapper {
+                margin: 0;
+            }
+        }
+    }
+}

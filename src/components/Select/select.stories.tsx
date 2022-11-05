@@ -170,7 +170,7 @@ export const onSelect: ComponentStory<typeof Select> = () => {
         <Select
             options={options}
             onSelect={(a, b) => {
-                alert('选中的数据发生改变');
+                console.log(a,b)
             }}></Select>
     );
 };
