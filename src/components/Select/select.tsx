@@ -40,6 +40,8 @@ export interface SelectProps {
     onSelect?: (curItem: optionType, allItem: optionType[]) => void;
     /** 下拉框出现或隐藏时的回调 */
     onVisibleChange?: (item: boolean) => void;
+    /** 默认提示 */
+    placeholder?: string;
 }
 
 export const Select: React.FC<SelectProps> = props => {
@@ -56,6 +58,7 @@ export const Select: React.FC<SelectProps> = props => {
         icon,
         disabled,
         className,
+        placeholder
     } = props;
 
     //当前渲染的Options
@@ -81,7 +84,7 @@ export const Select: React.FC<SelectProps> = props => {
                 }
             }
         }
-    }, []);
+    }, [defaultSelect]);
 
     //初始化option列表的scrollTop，让其停留在被选中item的高度
     useEffect(() => {
@@ -346,6 +349,7 @@ export const Select: React.FC<SelectProps> = props => {
                     value={inputVal}
                     icon={renderIcon()}
                     disabled={disabled}
+                    placeholder={placeholder}
                     onClick={() => {
                         if (onVisibleChange) {
                             onVisibleChange(showOptions);

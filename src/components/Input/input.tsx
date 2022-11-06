@@ -50,6 +50,17 @@ export const Input: React.FC<InputProps> = props => {
         'input-group-append': append,
     });
 
+    const fixControlledValue = (value: any) => {
+        if (typeof value === 'undefined' || value === null) {
+            return '';
+        }
+        return value;
+    };
+    if ('value' in props) {
+        delete restProps.defaultValue;
+        restProps.value = fixControlledValue(props.value);
+    }
+
     return (
         <div className={classes} style={style}>
             {prepend ? <div className="river-input-group-prepend">{prepend}</div> : null}

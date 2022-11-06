@@ -1,32 +1,57 @@
 .river-form {
     .river-row {
         display: flex;
-        align-items: center;
-        margin-bottom: 24px;
+        margin-bottom: 25px;
         &.river-row-no-label {
             flex-direction: row-reverse;
         }
         .river-form-item-label {
             flex-basis: 30%;
-            padding: 12px;
+            display: flex;
+            align-items: center;
             & > label {
-                margin: 0;
+                margin: 0 12px 0px 0px;
+            }
+        }
+        .river-form-item-required {
+            & > label::after {
+                content: '*';
+                color: $danger;
+                font-family: sans-serif;
+                font-size: 14px;
+                margin-left: 4px;
             }
         }
         .river-form-item-label-left {
-            text-align: left;
+            justify-content: flex-start;
         }
         .river-form-item-label-right {
-            text-align: right;
+            justify-content: flex-end;
         }
         .river-form-item-label-center {
-            text-align: center;
+            justify-content: center;
         }
 
         .river-form-item {
             flex-basis: 70%;
+            position: relative;
             .river-input-wrapper {
                 margin: 0;
+            }
+            .river-form-item-errors {
+                .river-input-wrapper {
+                    border: 1px solid $danger;
+                    border-radius: 6px;
+                    &:focus {
+                        box-shadow: $input-focus-box-shadow-error;
+                    }
+                }
+            }
+
+            .river-form-item-explain {
+                position: absolute;
+                bottom: -25px;
+                color: $danger;
             }
         }
     }
