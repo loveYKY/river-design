@@ -1,12 +1,26 @@
 {
   "name": "river-design",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "description": "React components library",
   "author": "River Hao",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "license": "MIT",
+  "keywords": [
+    "React",
+    "UI",
+    "Component"
+  ],
+  "homepage": "https://github.com/loveYKY/river-design",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/loveYKY/river-design"
+  },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
@@ -35,13 +49,14 @@
   "scripts": {
     "start": "react-scripts start",
     "clean": "rimraf ./dist",
-    "build": "yarn clean && yarn build-ts && yarn build-css",
+    "build": "npm run clean && npm run build-ts && npm run build-css",
     "build-ts": "tsc -p tsconfig.build.json",
     "build-css": "node-sass ./src/styles/index.scss ./dist/index.css",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "prepublish": "npm run build"
   },
   "eslintConfig": {
     "extends": [

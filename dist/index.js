@@ -1,10 +1,7 @@
-// import ReactDOM from "react-dom/client";
-// import "./styles/index.scss";
-// import App from "./App";
-// const root = ReactDOM.createRoot(
-//   document.getElementById("root") as HTMLElement
-// );
-// root.render(<App />);
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+// import './styles/index.scss'
+library.add(fas);
 export { default as Button } from './components/Button';
 export { default as Menu } from './components/Menu';
 export { default as AutoComplete } from './components/AutoComplete';
