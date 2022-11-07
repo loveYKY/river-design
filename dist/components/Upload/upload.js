@@ -27,7 +27,7 @@ import Dragger from './draggle';
  * ### 引用方法
  *
  * ~~~js
- * import { Upload } from 'rivership'
+ * import { Upload } from 'river-design'
  * ~~~
  */
 export var Upload = function (props) {

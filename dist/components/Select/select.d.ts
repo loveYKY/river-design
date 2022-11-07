@@ -36,5 +36,13 @@ export interface SelectProps {
     /** 默认提示 */
     placeholder?: string;
 }
+/**
+ * 通过点击或者拖拽上传文件
+ * ### 引用方法
+ *
+ * ~~~js
+ * import { Select } from 'river-design'
+ * ~~~
+ */
 export declare const Select: React.FC<SelectProps>;
 export default Select;

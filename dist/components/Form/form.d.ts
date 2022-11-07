@@ -25,5 +25,13 @@ export interface FromPorps {
 export declare type IFormRef = Omit<ReturnType<typeof useStore>, 'dispatch' | 'fields' | 'validateField' | 'formState'>;
 export declare type IFormContext = Pick<ReturnType<typeof useStore>, 'dispatch' | 'fields' | 'validateField'> & Pick<FromPorps, 'initialValue'>;
 export declare const FormContext: React.Context<IFormContext>;
+/**
+ * 通过点击或者拖拽上传文件
+ * ### 引用方法
+ *
+ * ~~~js
+ * import { Form } from 'river-design'
+ * ~~~
+ */
 export declare const Form: React.ForwardRefExoticComponent<FromPorps & React.RefAttributes<IFormRef>>;
 export default Form;

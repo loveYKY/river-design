@@ -59,6 +59,14 @@ var __rest = (this && this.__rest) || function (s, e) {
 import React, { createContext, useEffect, useImperativeHandle } from 'react';
 import useStore from '../../hooks/useStore';
 export var FormContext = createContext({});
+/**
+ * 通过点击或者拖拽上传文件
+ * ### 引用方法
+ *
+ * ~~~js
+ * import { Form } from 'river-design'
+ * ~~~
+ */
 export var Form = React.forwardRef(function (props, ref) {
     var name = props.name, children = props.children, initialValue = props.initialValue, onFinished = props.onFinished, onFinishFailed = props.onFinishFailed;
     var _a = useStore(initialValue), fields = _a.fields, formState = _a.formState, dispatch = _a.dispatch, validateField = _a.validateField, validate = _a.validate, restProps = __rest(_a, ["fields", "formState", "dispatch", "validateField", "validate"]);

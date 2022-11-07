@@ -4,6 +4,14 @@ import Icon from '../Icon/icon';
 import { faAngleDown, faInbox, faXmark } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames';
 import _ from 'lodash';
+/**
+ * 通过点击或者拖拽上传文件
+ * ### 引用方法
+ *
+ * ~~~js
+ * import { Select } from 'river-design'
+ * ~~~
+ */
 export var Select = function (props) {
     var mode = props.mode, style = props.style, defaultSelect = props.defaultSelect, onSelect = props.onSelect, onVisibleChange = props.onVisibleChange, multipleHidden = props.multipleHidden, Search = props.Search, options = props.options, optionLabelProp = props.optionLabelProp, icon = props.icon, disabled = props.disabled, className = props.className, placeholder = props.placeholder;
     //当前渲染的Options
