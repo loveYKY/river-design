@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        //输出目录
+        "outDir": "dist",
+        //最后打包成的模块
+        "module": "esnext",
+        //打包模块语法
+        "target": "es5",
+        //启动d.ts解释语法
+        "declaration": true,
+        //用什么框架编译jsx
+        "jsx": "react",
+        "moduleResolution": "Node",
+        "allowSyntheticDefaultImports": true
+    },
+    //编译需要包括的模块
+    "include": ["src"],
+    //编译需要排除的模块
+    "exclude": ["src/**/*.test.tsx", "src/**/*.stories.tsx", "src/setupTests.ts"]
+}

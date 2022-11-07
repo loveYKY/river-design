@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import {FormContext} from './form';
 import {RuleItem} from 'async-validator';
 import {CustomRule} from '../../hooks/useStore';
-export interface FromItemPorps {
+export interface FormItemProps {
     /** formItem 唯一的key */
     name: string;
     /** label */
@@ -23,7 +23,7 @@ export interface FromItemPorps {
     children?: ReactNode;
 }
 
-export const FormItem: React.FC<FromItemPorps> = props => {
+export const FormItem: React.FC<FormItemProps> = props => {
     const {name, label, valuePropName, trigger, validateTrigger, rules, getValueFromEvent, labelPosition, children} =
         props;
 
