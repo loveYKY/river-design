@@ -1,10 +1,9 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Input from '../Input/input';
 import Select from '../Select/select';
 import Button from '../Button/button';
 import FormItem from './formItem';
-import Form from './form';
-import useStore from '../../hooks/useStore';
+import Form, {IFormRef} from './form';
 import {ComponentMeta, ComponentStory} from '@storybook/react';
 
 const FormMeta: ComponentMeta<typeof Form> = {
@@ -188,6 +187,71 @@ export const CustomValidate = () => {
                         },
                         ({getFieldValue}) => ({
                             asyncValidator(rule, value) {
+                                if (value === getFieldValue('password')) {
+                                    return Promise.resolve();
+                                } else {
+                                    return Promise.reject('两次输入的密码不一样');
+                                }
+                            },
+                        }),
+                    ]}>
+                    <Input placeholder="请确认密码" type="password"></Input>
+                </FormItem>
+                <div style={{position: 'absolute', left: '50%', transform: 'translateX(-50%)'}}>
+                    <Button type="submit" btnType="primary">
+                        提交
+                    </Button>
+                </div>
+            </Form>
+        </>
+    );
+};
+CustomValidate.storyName = '自定义表单校验';
+
+export const DynamicValidate = () => {
+    const formRef = useRef<IFormRef>(null);
+
+    const handleValidate = async () => {
+        console.log(formRef.current);
+        let res = await formRef.current?.validate([]);
+        console.log(res);
+    };
+    const clearValidate = () => {
+        formRef.current?.clearValidate([]);
+    };
+    return (
+        <>
+            <Form ref={formRef}>
+                <FormItem
+                    label="用户名"
+                    name="username"
+                    rules={[
+                        {
+                            type: 'email',
+                            required: true,
+                        },
+                    ]}>
+                    <Input placeholder="请输入用户名"></Input>
+                </FormItem>
+                <FormItem
+                    label="密码"
+                    name="password"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}>
+                    <Input placeholder="请输入密码" type="password"></Input>
+                </FormItem>
+                <FormItem
+                    label="确认密码"
+                    name="confirmPassword"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                        ({getFieldValue}) => ({
+                            asyncValidator(rule, value) {
                                 console.log('the value of first password', getFieldValue('password'));
                                 console.log(value);
                                 if (value === getFieldValue('password')) {
@@ -201,7 +265,11 @@ export const CustomValidate = () => {
                     <Input placeholder="请确认密码" type="password"></Input>
                 </FormItem>
             </Form>
+            <div style={{position: 'absolute', left: '50%', transform: 'translateX(-50%)'}}>
+                <Button onClick={handleValidate}>校验表单</Button>
+                <Button onClick={clearValidate}>清楚校验</Button>
+            </div>
         </>
     );
 };
-CustomValidate.storyName = '自定义表单校验';
+DynamicValidate.storyName = '动态表单校验';

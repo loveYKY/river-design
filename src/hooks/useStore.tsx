@@ -1,6 +1,6 @@
 import {useEffect, useReducer, useState} from 'react';
 import Schema, {RuleItem, ValidateError} from 'async-validator';
-
+import {mapValues, each, clone, cloneDeep} from 'lodash';
 export type CustomRuleFn = ({getFieldValue}: any) => RuleItem;
 export type CustomRule = CustomRuleFn | RuleItem;
 
@@ -18,12 +18,19 @@ export interface FieldState {
 
 export interface FormState {
     isValid: boolean;
+    isSubmitting: boolean;
+    errors: Record<string, ValidateError[]>;
 }
 
 export interface FieldAction {
     type: 'addField' | 'updateField' | 'updateValidateResult';
     name: string;
     value: any;
+}
+
+export interface validateErrorType extends Error {
+    errors: ValidateError[];
+    fields: Record<string, ValidateError[]>;
 }
 
 const fieldReducer = (state: FieldState, action: FieldAction): FieldState => {
@@ -54,27 +61,27 @@ const fieldReducer = (state: FieldState, action: FieldAction): FieldState => {
     }
 };
 
-const useStore = () => {
-    const [formState, setFormState] = useState<FormState>({isValid: true});
+const useStore = (initialValue: Record<string, any> | undefined) => {
+    const [formState, setFormState] = useState<FormState>({isValid: true, isSubmitting: false, errors: {}});
 
     const [fields, dispatch] = useReducer(fieldReducer, {});
 
     const getFieldValue = (key: string) => {
         return fields && fields[key].value;
     };
+
+    //完成rule格式的传唤=>RuleItem
+    const getRules = (rules: CustomRule[]) => {
+        return rules.map(rule => {
+            if (typeof rule === 'function') {
+                return rule({getFieldValue});
+            } else {
+                return rule;
+            }
+        });
+    };
     const validateField = async (name: string) => {
         const {value, rules} = fields[name];
-
-        //完成rule格式的传唤=>RuleItem
-        const getRules = (rules: CustomRule[]) => {
-            return rules.map(rule => {
-                if (typeof rule === 'function') {
-                    return rule({getFieldValue});
-                } else {
-                    return rule;
-                }
-            });
-        };
 
         //获取转换后的rules
         const newRules = getRules(rules);
@@ -94,13 +101,10 @@ const useStore = () => {
             console.log(valueMap);
             await validator.validate(valueMap);
         } catch (e) {
-            let err = e as any;
+            let err = e as validateErrorType;
             isValid = false;
-            console.log(err.errors);
-            console.log(err.fields);
             errors = err.errors;
         } finally {
-            console.log('errors', isValid);
             dispatch({
                 type: 'updateValidateResult',
                 name: name,
@@ -112,11 +116,130 @@ const useStore = () => {
         }
     };
 
+    //全部验证
+    const validate = async (nameList: string[]) => {
+        let isValid = true;
+        let errors: Record<string, ValidateError[]> = {};
+        let fieldData: FieldState = {};
+        if (nameList && nameList.length !== 0) {
+            for (let i = 0; i < nameList.length; i++) {
+                fieldData[nameList[i]] = fields[nameList[i]];
+            }
+        } else {
+            fieldData = cloneDeep(fields);
+        }
+        //需要验证的值
+        const valueMap = mapValues(fieldData, item => item.value);
+        //验证描述器
+        const descriptor = mapValues(fieldData, item => getRules(item.rules));
+        //构造验证器
+        const validator = new Schema(descriptor);
+        //开启验证
+        setFormState({...formState, isSubmitting: true});
+
+        try {
+            //等待验证
+            await validator.validate(valueMap);
+        } catch (e) {
+            //获得验证的错误
+            let err = e as validateErrorType;
+            isValid = false;
+            errors = err.fields;
+            each(fieldData, (value, name) => {
+                if (errors[name]) {
+                    const itemError = errors[name];
+                    dispatch({
+                        type: 'updateValidateResult',
+                        name: name,
+                        value: {
+                            isValid,
+                            errors: itemError,
+                        },
+                    });
+                } else if (value.rules.length > 0 && !errors[name]) {
+                    dispatch({
+                        type: 'updateValidateResult',
+                        name: name,
+                        value: {
+                            isValid: true,
+                            errors: [],
+                        },
+                    });
+                }
+            });
+        } finally {
+            setFormState({...formState, isSubmitting: false, isValid, errors});
+
+            return {
+                isValid,
+                errors,
+                values: valueMap,
+            };
+        }
+    };
+
+    const getFieldsValue = () => {
+        return mapValues(fields, item => item.value);
+    };
+    const setFieldsValue = (name: string, value: any) => {
+        if (fields[name]) {
+            dispatch({
+                type: 'updateField',
+                name,
+                value,
+            });
+        }
+    };
+
+    const resetFields = () => {
+        if (initialValue) {
+            each(initialValue, (value, name) => {
+                if (fields[name]) {
+                    dispatch({
+                        type: 'updateField',
+                        name,
+                        value,
+                    });
+                }
+            });
+        }
+    };
+
+    const clearValidate = (nameList: string[]) => {
+        let fieldData: FieldState = {};
+        if (nameList && nameList.length !== 0) {
+            for (let i = 0; i < nameList.length; i++) {
+                fieldData[nameList[i]] = fields[nameList[i]];
+            }
+        } else {
+            fieldData = cloneDeep(fields);
+        }
+
+        each(fieldData, (item, name) => {
+            if (fields[name]) {
+                console.log(item);
+                dispatch({
+                    type: 'updateValidateResult',
+                    name,
+                    value: {
+                        isValid: true,
+                        errors: [],
+                    },
+                });
+            }
+        });
+    };
+
     return {
         fields,
         dispatch,
         formState,
         validateField,
+        validate,
+        resetFields,
+        getFieldsValue,
+        setFieldsValue,
+        clearValidate,
     };
 };
 

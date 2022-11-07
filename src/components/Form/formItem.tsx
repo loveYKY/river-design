@@ -27,14 +27,16 @@ export const FormItem: React.FC<FromItemPorps> = props => {
     const {name, label, valuePropName, trigger, validateTrigger, rules, getValueFromEvent, labelPosition, children} =
         props;
 
-    const {dispatch, validateField, fields, initialValue} = useContext(FormContext);
+    const {dispatch, validateField, fields, initialValue} =
+        useContext(FormContext);
 
+    //根据formitem props初始化fields
     useEffect(() => {
         const init_value = (initialValue && initialValue[name]) || null;
         dispatch({
             type: 'addField',
             name: name,
-            value: {label, name, value: init_value, rules: rules, isValid: true},
+            value: {label, name, value: init_value, rules: rules || [], isValid: true, errors: []},
         });
     }, []);
 
