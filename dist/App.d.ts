@@ -1,2 +1,3 @@
-declare function App(): void;
+/// <reference types="react" />
+declare function App(): JSX.Element;
 export default App;
