@@ -7,7 +7,7 @@ npm install river-design --save
 ### 使用文档
 
 ```
-aaaa
+https://loveyky.github.io/river-design-doc.github.io/?path=/docs/alert--default
 ```
 
 ### 加载样式
