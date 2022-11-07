@@ -29,6 +29,14 @@ export type IFormContext = Pick<ReturnType<typeof useStore>, 'dispatch' | 'field
     Pick<FromPorps, 'initialValue'>;
 export const FormContext = createContext<IFormContext>({} as IFormContext);
 
+/**
+ * 通过点击或者拖拽上传文件
+ * ### 引用方法
+ *
+ * ~~~js
+ * import { Form } from 'river-design'
+ * ~~~
+ */
 export const Form = React.forwardRef<IFormRef, FromPorps>((props, ref) => {
     const {name, children, initialValue, onFinished, onFinishFailed} = props;
 

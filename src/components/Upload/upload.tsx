@@ -52,7 +52,7 @@ export interface UploadProps {
  * ### 引用方法
  *
  * ~~~js
- * import { Upload } from 'rivership'
+ * import { Upload } from 'river-design'
  * ~~~
  */
 export const Upload: FC<UploadProps> = props => {
