@@ -1,7 +1,7 @@
 
-安装最后已经发布的组件库来试试
+//安装最后已经发布的组件库来试试使用
 npm install river-design --save
-使用
+
 // 加载样式
 import 'river-design/dist/index.css'
 // 引入组件
