@@ -28,7 +28,7 @@ const testFile = new File(['xyz'], 'test.png', {type: 'image/png'});
 describe('test upload component', () => {
     beforeEach(() => {
         wrapper = render(<Upload {...testProps}>Click to upload</Upload>);
-        fileInput = wrapper.container.querySelector('.viking-file-input') as HTMLInputElement;
+        fileInput = wrapper.container.querySelector('.river-file-input') as HTMLInputElement;
         uploadArea = wrapper.queryByText('Click to upload') as HTMLElement;
     });
     it('upload process should works fine', async () => {
