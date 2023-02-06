@@ -1,7 +1,7 @@
 import React, {createContext, FormHTMLAttributes, ReactNode, useEffect, useImperativeHandle, useState} from 'react';
 import useStore from '../../hooks/useStore';
 import {ValidateError} from 'async-validator';
-export interface FromPorps {
+export interface FormProps {
     /** 表单名称 */
     name?: string;
     /** 表单元素初始值 */
@@ -26,7 +26,7 @@ export interface FromPorps {
 export type IFormRef = Omit<ReturnType<typeof useStore>, 'dispatch' | 'fields' | 'validateField' | 'formState'>;
 
 export type IFormContext = Pick<ReturnType<typeof useStore>, 'dispatch' | 'fields' | 'validateField'> &
-    Pick<FromPorps, 'initialValue'>;
+    Pick<FormProps, 'initialValue'>;
 export const FormContext = createContext<IFormContext>({} as IFormContext);
 
 /**
@@ -37,7 +37,7 @@ export const FormContext = createContext<IFormContext>({} as IFormContext);
  * import { Form } from 'river-design'
  * ~~~
  */
-export const Form = React.forwardRef<IFormRef, FromPorps>((props, ref) => {
+export const Form = React.forwardRef<IFormRef, FormProps>((props, ref) => {
     const {name, children, initialValue, onFinished, onFinishFailed} = props;
 
     const {fields, formState, dispatch, validateField, validate, ...restProps} = useStore(initialValue);

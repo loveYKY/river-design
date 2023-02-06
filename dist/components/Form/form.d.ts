@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import useStore from '../../hooks/useStore';
 import { ValidateError } from 'async-validator';
-export interface FromPorps {
+export interface FormProps {
     /** 表单名称 */
     name?: string;
     /** 表单元素初始值 */
@@ -23,7 +23,7 @@ export interface FromPorps {
     children?: ReactNode;
 }
 export declare type IFormRef = Omit<ReturnType<typeof useStore>, 'dispatch' | 'fields' | 'validateField' | 'formState'>;
-export declare type IFormContext = Pick<ReturnType<typeof useStore>, 'dispatch' | 'fields' | 'validateField'> & Pick<FromPorps, 'initialValue'>;
+export declare type IFormContext = Pick<ReturnType<typeof useStore>, 'dispatch' | 'fields' | 'validateField'> & Pick<FormProps, 'initialValue'>;
 export declare const FormContext: React.Context<IFormContext>;
 /**
  * 通过点击或者拖拽上传文件
@@ -33,5 +33,5 @@ export declare const FormContext: React.Context<IFormContext>;
  * import { Form } from 'river-design'
  * ~~~
  */
-export declare const Form: React.ForwardRefExoticComponent<FromPorps & React.RefAttributes<IFormRef>>;
+export declare const Form: React.ForwardRefExoticComponent<FormProps & React.RefAttributes<IFormRef>>;
 export default Form;

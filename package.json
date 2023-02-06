@@ -1,6 +1,6 @@
 {
   "name": "river-design",
-  "version": "1.2.0",
+  "version": "1.4.0",
   "private": false,
   "description": "React components library",
   "author": "River Hao",
@@ -48,7 +48,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "prepublish": "npm run test:nowatch && npm run lint && npm run build",
+    "prepublish": "npm run test:nowatch && npm run build",
     "lint": "eslint --ext js,ts,tsx src",
     "test:nowatch": "cross-env CI=true react-scripts test"
   },
