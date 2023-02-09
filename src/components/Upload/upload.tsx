@@ -18,7 +18,7 @@ export interface UploadProps {
     action?: string;
     /**上传的文件列表,*/
     defaultFileList?: UploadFile[];
-    /**上传文件之前的钩子，参数为上传的文件，若返回 false 或者 Promise 则停止上传。 */
+    /**上传文件之前的钩子，参数为上传的文件，若返回 false 则停止上传。 */
     beforeUpload?: (file: File) => boolean | Promise<File>;
     /**文件上传时的钩子 */
     onProgress?: (percentage: number, file: UploadFile) => void;
@@ -74,8 +74,13 @@ export const Upload: FC<UploadProps> = props => {
         children,
         drag,
     } = props;
+
     const fileInput = useRef<HTMLInputElement>(null);
+
+    //用于存储要上传的文件
     const [fileList, setFileList] = useState<UploadFile[]>(defaultFileList || []);
+
+    //更新上传文件列表的文件信息
     const updateFileList = (updateFile: UploadFile, updateObj: Partial<UploadFile>) => {
         setFileList(prevList => {
             return prevList.map(file => {
@@ -116,9 +121,11 @@ export const Upload: FC<UploadProps> = props => {
             console.log('drag', postFiles[0]);
         }
         postFiles.forEach(file => {
+            //如果没有传入beforeUpload钩子函数，就直接上传
             if (!beforeUpload) {
                 post(file);
             } else {
+                //获取beforeUpload钩子函数返回的文件，并上传该文件
                 const result = beforeUpload(file);
                 if (result && result instanceof Promise) {
                     result.then(processedFile => {
@@ -131,7 +138,10 @@ export const Upload: FC<UploadProps> = props => {
         });
     };
     const post = (file: File) => {
+        //没有目标地址则不执行上传
         if (!action) return;
+
+        //记录文件信息
         let _file: UploadFile = {
             uid: Date.now() + 'upload-file',
             status: 'ready',
@@ -140,31 +150,42 @@ export const Upload: FC<UploadProps> = props => {
             percent: 0,
             raw: file,
         };
+        //加入到文件列表中
         setFileList(prevList => {
             return [_file, ...prevList];
         });
+
+        //将文件加入到formData中
         const formData = new FormData();
+        //name:上传的文件字段名
         formData.append(name || 'file', file);
+        //data:上传时附带的额外参数
         if (data) {
             Object.keys(data).forEach(key => {
                 formData.append(key, data[key]);
             });
         }
+        //使用axios实现上传
         axios
             .post(action, formData, {
+                //修改请求头，设置Content-Type为文件格式
                 headers: {
                     ...headers,
                     'Content-Type': 'multipart/form-data',
                 },
+                //设置跨域请求携带cookie
                 withCredentials,
+                //记录上传进度
                 onUploadProgress: e => {
                     if (e.total) {
                         let percentage = Math.round((e.loaded * 100) / e.total) || 0;
                         if (percentage < 100) {
+                            //更新上传文件列表的文件的进度、状态，
                             updateFileList(_file, {percent: percentage, status: 'uploading'});
                             _file.status = 'uploading';
                             _file.percent = percentage;
                             if (onProgress) {
+                                //触发正在上传生命周期钩子函数
                                 onProgress(percentage, _file);
                             }
                         }
@@ -172,23 +193,29 @@ export const Upload: FC<UploadProps> = props => {
                 },
             })
             .then(resp => {
+                //更新上传文件列表的文件的值和状态
                 updateFileList(_file, {status: 'success', response: resp.data});
                 _file.status = 'success';
                 _file.response = resp.data;
+                //触发上传成功生命周期函数
                 if (onSuccess) {
                     onSuccess(resp.data, _file);
                 }
+                //触发文件状态改变时的钩子，上传成功或者失败时都会被调用
                 if (onChange) {
                     onChange(_file);
                 }
             })
             .catch(err => {
+                //更新上传文件列表的文件的错误信息和状态
                 updateFileList(_file, {status: 'error', error: err});
                 _file.status = 'error';
                 _file.error = err;
+                //触发文件上传失败时的钩子
                 if (onError) {
                     onError(err, _file);
                 }
+                //触发文件状态改变时的钩子，上传成功或者失败时都会被调用
                 if (onChange) {
                     onChange(_file);
                 }
