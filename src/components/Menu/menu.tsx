@@ -46,7 +46,7 @@ export const MenuContext = React.createContext<IMenuContext>({index: '0'});
  * 支持水平、垂直模式的Menu菜单
  * ###引用方法
  * ```js
- * import Menu from 'river-design'
+ * import { Menu } from 'river-design'
  * ```
  *
  */

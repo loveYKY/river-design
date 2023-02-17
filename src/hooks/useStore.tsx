@@ -70,7 +70,7 @@ const useStore = (initialValue: Record<string, any> | undefined) => {
         return fields && fields[key].value;
     };
 
-    //完成rule格式的传唤=>RuleItem
+    //完成rule格式的转换=>RuleItem
     const getRules = (rules: CustomRule[]) => {
         return rules.map(rule => {
             if (typeof rule === 'function') {

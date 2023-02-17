@@ -38,7 +38,7 @@ export interface BaseAlertProps {
  * 用于提示信息,支持多种类型的alert组件
  * ###引用方法
  * ```js
- * import Alert from 'river-design'
+ * import { Alert } from 'river-design'
  * ```
  *
  */

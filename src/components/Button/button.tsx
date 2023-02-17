@@ -28,7 +28,7 @@ export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>;
  * 支持 HTML button 和 a 链接 的所有属性
  * ###引用方法
  * ```js
- * import Button from 'river-design'
+ * import { Button } from 'river-design'
  * ```
  */
 

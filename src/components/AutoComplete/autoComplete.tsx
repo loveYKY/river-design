@@ -34,7 +34,7 @@ export interface AutoCompleteProps extends Omit<InputProps, 'onSelect'> {
  * 支持Input标签属性的AutoCompete组件
  * ###引用方法
  * ```js
- * import AutoCompete from 'river-design'
+ * import { AutoCompete } from 'river-design'
  * ```
  *
  */

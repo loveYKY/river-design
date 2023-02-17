@@ -22,7 +22,7 @@ export interface TabsProps {
  * 支持line、card模式的Tabs菜单
  * ###引用方法
  * ```js
- * import Tabs from 'river-design'
+ * import { Tabs } from 'river-design'
  * ```
  *
  */
